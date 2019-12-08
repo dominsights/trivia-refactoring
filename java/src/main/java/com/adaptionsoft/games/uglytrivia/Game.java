@@ -15,6 +15,7 @@ import java.util.LinkedList;
 // 6 - Storing deck of questions
 // 7 - Adding players
 // 8 - Control players location
+// 9 - Keeps track of players' score
 
 
 
@@ -27,14 +28,16 @@ public class Game {
 	ArrayList<String> players = new ArrayList<String>();
 	int[] places = new int[6];
 	int[] purses = new int[6];
-	boolean[] inPenaltyBox = new boolean[6];
-
-	private Deck deck;
-
-	int currentPlayer = 0;
+	
 	boolean isGettingOutOfPenaltyBox;
 
+	private Deck deck;
+	private PenaltyBox penaltyBox;
+
+	int currentPlayer = 0;
+
 	public Game() {
+		penaltyBox = new PenaltyBox();
 		deck = new Deck();
 		deck.initializeQuestions();
 	}
@@ -47,7 +50,6 @@ public class Game {
 		players.add(playerName);
 		places[howManyPlayers()] = 0;
 		purses[howManyPlayers()] = 0;
-		inPenaltyBox[howManyPlayers()] = false;
 
 		System.out.println(playerName + " was added");
 		System.out.println("They are player number " + players.size());
@@ -62,7 +64,7 @@ public class Game {
 		System.out.println(players.get(currentPlayer) + " is the current player");
 		System.out.println("They have rolled a " + roll);
 
-		if (inPenaltyBox[currentPlayer]) {
+		if (penaltyBox.contains(currentPlayer)) {
 			if (roll % 2 != 0) {
 				isGettingOutOfPenaltyBox = true;
 
@@ -93,7 +95,7 @@ public class Game {
 	}
 
 	public boolean wasCorrectlyAnswered() {
-		if (inPenaltyBox[currentPlayer]) {
+		if (penaltyBox.contains(currentPlayer)) {
 			if (isGettingOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
 				purses[currentPlayer]++;
@@ -130,7 +132,7 @@ public class Game {
 	public boolean wrongAnswer() {
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
-		inPenaltyBox[currentPlayer] = true;
+		penaltyBox.insertPlayer(currentPlayer);
 
 		currentPlayer++;
 		if (currentPlayer == players.size()) {
