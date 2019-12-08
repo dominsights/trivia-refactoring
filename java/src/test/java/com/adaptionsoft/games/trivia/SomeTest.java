@@ -32,7 +32,7 @@ public class SomeTest {
 		ByteArrayOutputStream byteOutputStream = setCustomOutStream();
 		
 		Game game = new Game();
-		game.add("Player 1");
+		game.addPlayer("Player 1");
 		assertFalse(game.isPlayable());
 		assertEquals(1, game.howManyPlayers());
 		
@@ -181,7 +181,7 @@ public class SomeTest {
 	}
 	
 	private void addTwoPlayers(Game game) {
-		game.add("Player 1");
-		game.add("Player 2");
+		game.addPlayer("Player 1");
+		game.addPlayer("Player 2");
 	}
 }
