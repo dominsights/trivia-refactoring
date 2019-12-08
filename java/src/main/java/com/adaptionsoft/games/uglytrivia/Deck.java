@@ -3,17 +3,17 @@ package com.adaptionsoft.games.uglytrivia;
 import java.util.LinkedList;
 
 public class Deck {
-	LinkedList<String> popQuestions = new LinkedList<String>();
-	LinkedList<String> scienceQuestions = new LinkedList<String>();
-	LinkedList<String> sportsQuestions = new LinkedList<String>();
-	LinkedList<String> rockQuestions = new LinkedList<String>();
+	LinkedList<Question> popQuestions = new LinkedList<Question>();
+	LinkedList<Question> scienceQuestions = new LinkedList<Question>();
+	LinkedList<Question> sportsQuestions = new LinkedList<Question>();
+	LinkedList<Question> rockQuestions = new LinkedList<Question>();
 
 	public void initializeQuestions() {
 		for (int i = 0; i < 50; i++) {
-			popQuestions.addLast("Pop Question " + i);
-			scienceQuestions.addLast(("Science Question " + i));
-			sportsQuestions.addLast(("Sports Question " + i));
-			rockQuestions.addLast(createRockQuestion(i));
+			popQuestions.addLast(new Question("Pop Question " + i));
+			scienceQuestions.addLast(new Question("Science Question " + i));
+			sportsQuestions.addLast(new Question("Sports Question " + i));
+			rockQuestions.addLast(new Question(createRockQuestion(i)));
 		}
 	}
 
