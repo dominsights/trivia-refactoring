@@ -3,31 +3,40 @@ package com.adaptionsoft.games.uglytrivia;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+// Apply SOLID
+
+// Single Responsability
+
+// 1 - Deciding the category of the questions
+// 2 - Picking questions to be asked
+// 3 - Deciding which player is the winner
+// 4 - Checking if the question was correctly answered or not
+// 5 - Controlling the penalty box
+// 6 - Storing deck of questions
+// 7 - Adding players
+// 8 - Control players location
+
+
+
+// Open-Closed
+// Liskov Substitution
+// Interface Segregation
+// Dependency Inversion
+
 public class Game {
 	ArrayList<String> players = new ArrayList<String>();
 	int[] places = new int[6];
 	int[] purses = new int[6];
 	boolean[] inPenaltyBox = new boolean[6];
 
-	LinkedList<String> popQuestions = new LinkedList<String>();
-	LinkedList<String> scienceQuestions = new LinkedList<String>();
-	LinkedList<String> sportsQuestions = new LinkedList<String>();
-	LinkedList<String> rockQuestions = new LinkedList<String>();
+	private Deck deck;
 
 	int currentPlayer = 0;
 	boolean isGettingOutOfPenaltyBox;
 
 	public Game() {
-		for (int i = 0; i < 50; i++) {
-			popQuestions.addLast("Pop Question " + i);
-			scienceQuestions.addLast(("Science Question " + i));
-			sportsQuestions.addLast(("Sports Question " + i));
-			rockQuestions.addLast(createRockQuestion(i));
-		}
-	}
-
-	public String createRockQuestion(int index) {
-		return "Rock Question " + index;
+		deck = new Deck();
+		deck.initializeQuestions();
 	}
 
 	public boolean isPlayable() {
@@ -64,8 +73,8 @@ public class Game {
 				}
 
 				System.out.println(players.get(currentPlayer) + "'s new location is " + places[currentPlayer]);
-				System.out.println("The category is " + currentCategory());
-				askQuestion();
+				System.out.println("The category is " + deck.currentCategory(places[currentPlayer]));
+				deck.askQuestion(places[currentPlayer]);
 			} else {
 				System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
 				isGettingOutOfPenaltyBox = false;
@@ -78,8 +87,8 @@ public class Game {
 			}
 
 			System.out.println(players.get(currentPlayer) + "'s new location is " + places[currentPlayer]);
-			System.out.println("The category is " + currentCategory());
-			askQuestion();
+			System.out.println("The category is " + deck.currentCategory(places[currentPlayer]));
+			deck.askQuestion(places[currentPlayer]);
 		}
 	}
 
@@ -132,41 +141,5 @@ public class Game {
 
 	private boolean didPlayerWin() {
 		return !(purses[currentPlayer] == 6);
-	}
-
-	private void askQuestion() {
-		if (currentCategory() == "Pop") {
-			System.out.println(popQuestions.removeFirst());
-		} else if (currentCategory() == "Science") {
-			System.out.println(scienceQuestions.removeFirst());
-		} else if (currentCategory() == "Sports") {
-			System.out.println(sportsQuestions.removeFirst());
-		} else if (currentCategory() == "Rock") {
-			System.out.println(rockQuestions.removeFirst());
-		}
-	}
-
-	private String currentCategory() {
-		switch (places[currentPlayer]) {
-		case 0:
-			return "Pop";
-		case 4:
-			return "Pop";
-		case 8:
-			return "Pop";
-		case 1:
-			return "Science";
-		case 5:
-			return "Science";
-		case 9:
-			return "Science";
-		case 2:
-			return "Sports";
-		case 6:
-			return "Sports";
-		case 10:
-			return "Sports";
-		}
-		return "Rock";
 	}
 }
