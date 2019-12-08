@@ -3,6 +3,10 @@ package com.adaptionsoft.games.uglytrivia;
 import java.util.LinkedList;
 
 public class Deck {
+	public Deck() {
+		initializeQuestions();
+	}
+	
 	LinkedList<Question> popQuestions = new LinkedList<Question>();
 	LinkedList<Question> scienceQuestions = new LinkedList<Question>();
 	LinkedList<Question> sportsQuestions = new LinkedList<Question>();

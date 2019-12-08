@@ -39,7 +39,6 @@ public class Game {
 	public Game() {
 		penaltyBox = new PenaltyBox();
 		deck = new Deck();
-		deck.initializeQuestions();
 	}
 
 	public boolean isPlayable() {
