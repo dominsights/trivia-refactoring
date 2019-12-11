@@ -7,7 +7,7 @@ They have rolled a 1
 Player 1's new location is 1
 The category is Science
 Science Question 0
-Answer was corrent!!!!
+Answer was correct!!!!
 Player 1 now has 1 Gold Coins.
 Player 2 is the current player
 They have rolled a 1
@@ -21,7 +21,7 @@ They have rolled a 1
 Player 1's new location is 2
 The category is Sports
 Sports Question 0
-Answer was corrent!!!!
+Answer was correct!!!!
 Player 1 now has 2 Gold Coins.
 Player 2 is the current player
 They have rolled a 1

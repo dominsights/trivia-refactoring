@@ -1,7 +1,6 @@
 package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 // Apply SOLID
 
@@ -26,12 +25,9 @@ import java.util.LinkedList;
 
 public class Game {
 	ArrayList<Player> players = new ArrayList<Player>();
-	
 	boolean isGettingOutOfPenaltyBox;
-
 	private Deck deck;
 	private PenaltyBox penaltyBox;
-
 	int currentPlayer = 0;
 
 	public Game() {
@@ -58,37 +54,19 @@ public class Game {
 	}
 
 	public void roll(int roll) {
-		Player player = players.get(currentPlayer);
-		System.out.println(player.getName() + " is the current player");
+		Player player = getCurrentPlayer();
 		System.out.println("They have rolled a " + roll);
 
 		if (penaltyBox.contains(currentPlayer)) {
-			if (roll % 2 != 0) {
-				isGettingOutOfPenaltyBox = true;
-
+			isGettingOutOfPenaltyBox = roll % 2 != 0;
+			if (isGettingOutOfPenaltyBox) {
 				System.out.println(player.getName() + " is getting out of the penalty box");
-				player.setPosition(player.getPosition() + roll);
-				if (player.getPosition() > 11) {
-					player.setPosition(player.getPosition() - 12);
-				}
-
-				System.out.println(player.getName() + "'s new location is " + player.getPosition());
-				System.out.println("The category is " + deck.currentCategory(player.getPosition()));
-				deck.askQuestion(player.getPosition());
+				updatePlayerPositionAndAskQuestion(roll, player);
 			} else {
 				System.out.println(player.getName() + " is not getting out of the penalty box");
-				isGettingOutOfPenaltyBox = false;
 			}
-
 		} else {
-			player.setPosition(player.getPosition() + roll);
-			if (player.getPosition() > 11) {
-				player.setPosition(player.getPosition() - 12);
-			}
-
-			System.out.println(player.getName() + "'s new location is " + player.getPosition());
-			System.out.println("The category is " + deck.currentCategory(player.getPosition()));
-			deck.askQuestion(player.getPosition());
+			updatePlayerPositionAndAskQuestion(roll, player);
 		}
 	}
 
@@ -96,48 +74,69 @@ public class Game {
 		Player player = players.get(currentPlayer);
 		if (penaltyBox.contains(currentPlayer)) {
 			if (isGettingOutOfPenaltyBox) {
-				System.out.println("Answer was correct!!!!");
-				player.setCoins(player.getCoins() + 1);
-				System.out.println(players.get(currentPlayer).getName() + " now has " + player.getCoins() + " Gold Coins.");
-
-				boolean winner = didPlayerWin();
-				currentPlayer++;
-				if (currentPlayer == players.size()) {
-					currentPlayer = 0;
-				}
-
-				return winner;
+				increasePlayerCoins(player);
+				updateCurrentPlayer();
+				return didPlayerWin();
 			} else {
-				currentPlayer++;
-				if (currentPlayer == players.size()) {
-					currentPlayer = 0;
-				}
+				updateCurrentPlayer();
 				return true;
 			}
 		} else {
-			System.out.println("Answer was corrent!!!!");
-			player.setCoins(player.getCoins() + 1);
-			System.out.println(players.get(currentPlayer).getName() + " now has " + player.getCoins() + " Gold Coins.");
-
-			boolean winner = didPlayerWin();
-			currentPlayer++;
-			if (currentPlayer == players.size()) {
-				currentPlayer = 0;
-			}
-			return winner;
+			increasePlayerCoins(player);
+			updateCurrentPlayer();
+			return didPlayerWin();
 		}
 	}
-
+	
 	public boolean wrongAnswer() {
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayer).getName() + " was sent to the penalty box");
 		penaltyBox.insertPlayer(currentPlayer);
 
+		updateCurrentPlayer();
+		return true;
+	}
+	
+	private Player getCurrentPlayer() {
+		Player player = players.get(currentPlayer);
+		System.out.println(player.getName() + " is the current player");
+		return player;
+	}
+
+	private void updatePlayerPositionAndAskQuestion(int roll, Player player) {
+		updatePlayerPosition(roll, player);
+		askQuestion(player);
+	}
+
+	private void askQuestion(Player player) {
+		System.out.println("The category is " + deck.currentCategory(player.getPosition()));
+		deck.askQuestion(player.getPosition());
+	}
+
+	private void updatePlayerPosition(int roll, Player player) {
+		player.setPosition(player.getPosition() + roll);
+		int maxPosition = 11;
+		if (player.getPosition() > maxPosition) {
+			resetPlayerPosition(player);
+		}
+		System.out.println(player.getName() + "'s new location is " + player.getPosition());
+	}
+
+	private void resetPlayerPosition(Player player) {
+		player.setPosition(player.getPosition() - 12);
+	}
+
+	private void updateCurrentPlayer() {
 		currentPlayer++;
 		if (currentPlayer == players.size()) {
 			currentPlayer = 0;
 		}
-		return true;
+	}
+
+	private void increasePlayerCoins(Player player) {
+		System.out.println("Answer was correct!!!!");
+		player.setCoins(player.getCoins() + 1);
+		System.out.println(players.get(currentPlayer).getName() + " now has " + player.getCoins() + " Gold Coins.");
 	}
 
 	private boolean didPlayerWin() {
