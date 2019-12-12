@@ -60,37 +60,37 @@ public class Game {
 
 	public void roll(int roll) {
 		System.out.println(currentPlayer.getName() + " is the current player");
-		Player player = currentPlayer;
 		System.out.println("They have rolled a " + roll);
 
 		if (penaltyBox.contains(currentPlayer)) {
 			isGettingOutOfPenaltyBox = roll % 2 != 0;
 			if (isGettingOutOfPenaltyBox) {
-				System.out.println(player.getName() + " is getting out of the penalty box");
-				updatePlayerPositionAndAskQuestion(roll, player);
+				System.out.println(currentPlayer.getName() + " is getting out of the penalty box");
+				updatePlayerPositionAndAskQuestion(roll, currentPlayer);
 			} else {
-				System.out.println(player.getName() + " is not getting out of the penalty box");
+				System.out.println(currentPlayer.getName() + " is not getting out of the penalty box");
 			}
 		} else {
-			updatePlayerPositionAndAskQuestion(roll, player);
+			updatePlayerPositionAndAskQuestion(roll, currentPlayer);
 		}
 	}
 
 	public boolean wasCorrectlyAnswered() {
+		boolean playerDidWin;
 		if (penaltyBox.contains(currentPlayer)) {
 			if (isGettingOutOfPenaltyBox) {
 				increasePlayerCoins(currentPlayer);
-				updateCurrentPlayer();
-				return didPlayerWin();
+				playerDidWin = didPlayerWin();
 			} else {
-				updateCurrentPlayer();
-				return true;
+				playerDidWin = true;
 			}
 		} else {
 			increasePlayerCoins(currentPlayer);
-			updateCurrentPlayer();
-			return didPlayerWin();
+			playerDidWin = didPlayerWin();
 		}
+		
+		updateCurrentPlayer();
+		return playerDidWin;
 	}
 	
 	public boolean wrongAnswer() {
