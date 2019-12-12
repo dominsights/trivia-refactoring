@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 
 
+
 // Open-Closed
 // Liskov Substitution
 // Interface Segregation
@@ -105,11 +106,6 @@ public class Game {
 
 	private void updatePlayerPositionAndAskQuestion(int roll, Player player) {
 		updatePlayerPosition(roll, player);
-		askQuestion(player);
-	}
-
-	private void askQuestion(Player player) {
-		System.out.println("The category is " + deck.currentCategory(player.getPosition()));
 		deck.askQuestion(player.getPosition());
 	}
 

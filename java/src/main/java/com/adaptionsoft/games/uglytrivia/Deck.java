@@ -26,6 +26,7 @@ public class Deck {
 	}
 	
 	public void askQuestion(int playerPosition) {
+		System.out.println("The category is " + currentCategory(playerPosition));
 		if (currentCategory(playerPosition) == "Pop") {
 			System.out.println(popQuestions.removeFirst());
 		} else if (currentCategory(playerPosition) == "Science") {
