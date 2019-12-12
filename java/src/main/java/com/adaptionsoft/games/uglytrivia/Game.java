@@ -29,7 +29,7 @@ public class Game {
 	boolean isGettingOutOfPenaltyBox;
 	private Deck deck;
 	private PenaltyBox penaltyBox;
-	int currentPlayer = 0;
+	Player currentPlayer;
 
 	public Game() {
 		penaltyBox = new PenaltyBox();
@@ -44,6 +44,10 @@ public class Game {
 		Player player = new Player(playerName, 0);
 		players.add(player);
 		player.setCoins(0);
+		
+		if(currentPlayer == null) {
+			currentPlayer = player;
+		}
 
 		System.out.println(playerName + " was added");
 		System.out.println("They are player number " + players.size());
@@ -55,7 +59,8 @@ public class Game {
 	}
 
 	public void roll(int roll) {
-		Player player = getCurrentPlayer();
+		System.out.println(currentPlayer.getName() + " is the current player");
+		Player player = currentPlayer;
 		System.out.println("They have rolled a " + roll);
 
 		if (penaltyBox.contains(currentPlayer)) {
@@ -72,10 +77,9 @@ public class Game {
 	}
 
 	public boolean wasCorrectlyAnswered() {
-		Player player = players.get(currentPlayer);
 		if (penaltyBox.contains(currentPlayer)) {
 			if (isGettingOutOfPenaltyBox) {
-				increasePlayerCoins(player);
+				increasePlayerCoins(currentPlayer);
 				updateCurrentPlayer();
 				return didPlayerWin();
 			} else {
@@ -83,7 +87,7 @@ public class Game {
 				return true;
 			}
 		} else {
-			increasePlayerCoins(player);
+			increasePlayerCoins(currentPlayer);
 			updateCurrentPlayer();
 			return didPlayerWin();
 		}
@@ -91,19 +95,13 @@ public class Game {
 	
 	public boolean wrongAnswer() {
 		System.out.println("Question was incorrectly answered");
-		System.out.println(players.get(currentPlayer).getName() + " was sent to the penalty box");
+		System.out.println(currentPlayer.getName() + " was sent to the penalty box");
 		penaltyBox.insertPlayer(currentPlayer);
 
 		updateCurrentPlayer();
 		return true;
 	}
 	
-	private Player getCurrentPlayer() {
-		Player player = players.get(currentPlayer);
-		System.out.println(player.getName() + " is the current player");
-		return player;
-	}
-
 	private void updatePlayerPositionAndAskQuestion(int roll, Player player) {
 		updatePlayerPosition(roll, player);
 		deck.askQuestion(player.getPosition());
@@ -123,20 +121,21 @@ public class Game {
 	}
 
 	private void updateCurrentPlayer() {
-		currentPlayer++;
-		if (currentPlayer == players.size()) {
-			currentPlayer = 0;
+		int currentPosition = players.indexOf(currentPlayer);
+		int nextPosition = currentPosition + 1;
+		if (nextPosition > players.size() - 1) {
+			nextPosition = 0;
 		}
+		currentPlayer = players.get(nextPosition);
 	}
 
 	private void increasePlayerCoins(Player player) {
 		System.out.println("Answer was correct!!!!");
 		player.setCoins(player.getCoins() + 1);
-		System.out.println(players.get(currentPlayer).getName() + " now has " + player.getCoins() + " Gold Coins.");
+		System.out.println(currentPlayer.getName() + " now has " + currentPlayer.getCoins() + " Gold Coins.");
 	}
 
 	private boolean didPlayerWin() {
-		Player player = players.get(currentPlayer);
-		return !(player.getCoins() == 6);
+		return !(currentPlayer.getCoins() == 6);
 	}
 }

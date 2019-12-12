@@ -1,17 +1,19 @@
 package com.adaptionsoft.games.uglytrivia;
 
+import java.util.ArrayList;
+
 public class PenaltyBox {
-	boolean[] inPenaltyBox = new boolean[6];
+	ArrayList<Player> inPenaltyBox = new ArrayList<Player>();
 	
-	public void insertPlayer(int player) {
-		inPenaltyBox[player] = true;
+	public void insertPlayer(Player player) {
+		inPenaltyBox.add(player);
 	}
 	
-	public void removePlayer(int player) {
-		inPenaltyBox[player] = false;
+	public void removePlayer(Player player) {
+		inPenaltyBox.remove(player);
 	}
 	
-	public boolean contains(int player) {
-		return inPenaltyBox[player];
+	public boolean contains(Player player) {
+		return inPenaltyBox.contains(player);
 	}
 }
