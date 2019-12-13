@@ -2,28 +2,6 @@ package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
 
-// Apply SOLID
-
-// Single Responsability
-
-// 1 - Deciding the category of the questions
-// 2 - Picking questions to be asked
-// 3 - Deciding which player is the winner
-// 4 - Checking if the question was correctly answered or not
-// 5 - Controlling the penalty box
-// 6 - Storing deck of questions
-// 7 - Adding players
-// 8 - Control players location
-// 9 - Keeps track of players' score
-
-
-
-
-// Open-Closed
-// Liskov Substitution
-// Interface Segregation
-// Dependency Inversion
-
 public class Game {
 	ArrayList<Player> players = new ArrayList<Player>();
 	boolean isGettingOutOfPenaltyBox;
