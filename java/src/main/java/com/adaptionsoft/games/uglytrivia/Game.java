@@ -46,8 +46,7 @@ public class Game {
 	}
 
 	public boolean wasCorrectlyAnswered() {
-		boolean playerDidWin;
-		playerDidWin = penaltyBoxState.wasCorrectlyAnswered(currentPlayer, penaltyBox);
+		boolean playerDidWin = penaltyBoxState.wasCorrectlyAnswered(currentPlayer, penaltyBox);
 		
 		updateCurrentPlayer();
 		return playerDidWin;
