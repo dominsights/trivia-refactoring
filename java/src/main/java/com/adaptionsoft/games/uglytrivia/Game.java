@@ -101,7 +101,7 @@ public class Game {
 		System.out.println(currentPlayer.getName() + " now has " + currentPlayer.getCoins() + " Gold Coins.");
 	}
 
-	public boolean didPlayerWin() {
+	boolean didPlayerWin() {
 		return !(currentPlayer.getCoins() == 6);
 	}
 }
