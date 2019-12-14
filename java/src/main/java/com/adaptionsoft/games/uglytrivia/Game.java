@@ -3,10 +3,10 @@ package com.adaptionsoft.games.uglytrivia;
 import java.util.ArrayList;
 
 public class Game {
-	ArrayList<Player> players = new ArrayList<Player>();
+	private ArrayList<Player> players = new ArrayList<Player>();
 	private Deck deck;
 	private PenaltyBox penaltyBox;
-	Player currentPlayer;
+	private Player currentPlayer;
 	private PenaltyBoxState penaltyBoxState;
 
 	public Game() {
