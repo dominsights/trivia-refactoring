@@ -48,14 +48,18 @@ public class SomeTest {
 		addTwoPlayers(game);
 		// first turn
 		game.roll(1);
-		game.wasCorrectlyAnswered();
+		game.correctAnswer();
+		game.changeToNextPlayer();
 		game.roll(1);
 		game.wrongAnswer();
+		game.changeToNextPlayer();
+		
 		// second turn
 		game.roll(1);
-		game.wasCorrectlyAnswered();
+		game.correctAnswer();
+		game.changeToNextPlayer();
 		game.roll(1);
-		game.wasCorrectlyAnswered();
+		game.correctAnswer();
 		
 		String output = getOutput(byteOutputStream);
 		
@@ -70,14 +74,17 @@ public class SomeTest {
 		addTwoPlayers(game);
 		// first turn
 		game.roll(1);
-		game.wasCorrectlyAnswered();
+		game.correctAnswer();
+		game.changeToNextPlayer();
 		game.roll(1);
 		game.wrongAnswer();
+		game.changeToNextPlayer();
 		// second turn
 		game.roll(1);
-		game.wasCorrectlyAnswered();
+		game.correctAnswer();
+		game.changeToNextPlayer();
 		game.roll(2);
-		game.wasCorrectlyAnswered();
+		game.correctAnswer();
 		
 		String output = getOutput(byteOutputStream);
 		
@@ -92,14 +99,17 @@ public class SomeTest {
 		addTwoPlayers(game);
 		// first turn
 		game.roll(11);
-		game.wasCorrectlyAnswered();
+		game.correctAnswer();
+		game.changeToNextPlayer();
 		game.roll(1);
 		game.wrongAnswer();
+		game.changeToNextPlayer();
 		// second turn
 		game.roll(1);
-		game.wasCorrectlyAnswered();
+		game.correctAnswer();
+		game.changeToNextPlayer();
 		game.roll(11);
-		game.wasCorrectlyAnswered();
+		game.correctAnswer();
 		
 		String output = getOutput(byteOutputStream);
 		
@@ -115,13 +125,17 @@ public class SomeTest {
 		// first turn
 		game.roll(11);
 		game.wrongAnswer();
+		game.changeToNextPlayer();
 		game.roll(1);
 		game.wrongAnswer();
+		game.changeToNextPlayer();
 		// second turn
 		game.roll(1);
-		game.wasCorrectlyAnswered();
+		game.correctAnswer();
+		game.changeToNextPlayer();
 		game.roll(2);
-		game.wasCorrectlyAnswered();
+		game.correctAnswer();
+		game.changeToNextPlayer();
 		
 		String output = getOutput(byteOutputStream);
 		
@@ -137,13 +151,17 @@ public class SomeTest {
 		// first turn
 		game.roll(11);
 		game.wrongAnswer();
+		game.changeToNextPlayer();
 		game.roll(1);
-		game.wasCorrectlyAnswered();
+		game.correctAnswer();
+		game.changeToNextPlayer();
 		// second turn
 		game.roll(2);
-		game.wasCorrectlyAnswered();
+		game.correctAnswer();
+		game.changeToNextPlayer();
 		game.roll(2);
-		game.wasCorrectlyAnswered();
+		game.correctAnswer();
+		game.changeToNextPlayer();
 		
 		String output = getOutput(byteOutputStream);
 		
@@ -159,7 +177,8 @@ public class SomeTest {
 
 		for(int i = 0; i < 20; i++) { // roll 12 times
 			game.roll(1);
-			game.wasCorrectlyAnswered();
+			game.correctAnswer();
+			game.changeToNextPlayer();
 		}
 		
 		String output = getOutput(byteOutputStream);

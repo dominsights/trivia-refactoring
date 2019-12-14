@@ -44,20 +44,14 @@ public class Game {
 		penaltyBoxState.roll(currentPlayer, roll);
 	}
 
-	public boolean wasCorrectlyAnswered() {
-		boolean playerDidWin = penaltyBoxState.wasCorrectlyAnswered(currentPlayer, penaltyBox);
-		
-		updateCurrentPlayer();
-		return playerDidWin;
+	public void correctAnswer() {
+		penaltyBoxState.wasCorrectlyAnswered(currentPlayer, penaltyBox);
 	}
 	
-	public boolean wrongAnswer() {
+	public void wrongAnswer() {
 		System.out.println("Question was incorrectly answered");
 		System.out.println(currentPlayer.getName() + " was sent to the penalty box");
 		penaltyBox.insertPlayer(currentPlayer);
-
-		updateCurrentPlayer();
-		return true;
 	}
 	
 	void updatePlayerPositionAndAskQuestion(int roll, Player player) {
@@ -71,7 +65,7 @@ public class Game {
 		System.out.println(currentPlayer.getName() + " now has " + currentPlayer.getCoins() + " Gold Coins.");
 	}
 
-	boolean didPlayerWin() {
+	public boolean isNotAWinner() {
 		return !(currentPlayer.getCoins() == 6);
 	}
 
@@ -88,7 +82,7 @@ public class Game {
 		player.setPosition(player.getPosition() - 12);
 	}
 
-	private void updateCurrentPlayer() {
+	public void changeToNextPlayer() {
 		int currentPosition = players.indexOf(currentPlayer);
 		int nextPosition = currentPosition + 1;
 		if (nextPosition > players.size() - 1) {

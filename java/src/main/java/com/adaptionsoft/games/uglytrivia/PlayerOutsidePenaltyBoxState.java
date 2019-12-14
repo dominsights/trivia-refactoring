@@ -11,10 +11,7 @@ public class PlayerOutsidePenaltyBoxState extends PenaltyBoxState {
 	}
 
 	@Override
-	public boolean wasCorrectlyAnswered(Player player, PenaltyBox penaltyBox) {
-		boolean playerDidWin = false;
+	public void wasCorrectlyAnswered(Player player, PenaltyBox penaltyBox) {
 		game.increasePlayerCoins(player);
-		playerDidWin = game.didPlayerWin();
-		return playerDidWin;
 	}
 }

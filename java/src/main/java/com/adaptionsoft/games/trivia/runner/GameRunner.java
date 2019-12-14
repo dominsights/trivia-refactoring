@@ -22,9 +22,13 @@ public class GameRunner {
 			aGame.roll(rand.nextInt(5) + 1);
 			
 			if (rand.nextInt(9) == 7) {
-				notAWinner = aGame.wrongAnswer();
+				aGame.wrongAnswer();
+				notAWinner = aGame.isNotAWinner();
+				aGame.changeToNextPlayer();
 			} else {
-				notAWinner = aGame.wasCorrectlyAnswered();
+				aGame.correctAnswer();
+				notAWinner = aGame.isNotAWinner();
+				aGame.changeToNextPlayer();
 			}
 		} while (notAWinner);
 	}

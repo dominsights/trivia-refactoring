@@ -20,17 +20,13 @@ public class PlayerInsidePenaltyBoxState extends PenaltyBoxState {
 	}
 	
 	@Override
-	public boolean wasCorrectlyAnswered(Player player, PenaltyBox penaltyBox) {
-		boolean playerDidWin = false;
+	public void wasCorrectlyAnswered(Player player, PenaltyBox penaltyBox) {
 		if (penaltyBox.contains(player)) {
 			if (isGettingOutOfPenaltyBox) {
 				game.increasePlayerCoins(player);
-				playerDidWin = game.didPlayerWin();
+				penaltyBox.removePlayer(player);
 			} else {
-				playerDidWin = true;
 			}
 		} 
-		
-		return playerDidWin;
 	}
 }

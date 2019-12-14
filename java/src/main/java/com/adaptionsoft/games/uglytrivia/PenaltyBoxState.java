@@ -8,5 +8,5 @@ public abstract class PenaltyBoxState {
 	}
 	
 	abstract void roll(Player player, int roll);
-	abstract boolean wasCorrectlyAnswered(Player player, PenaltyBox penaltyBox);
+	abstract void wasCorrectlyAnswered(Player player, PenaltyBox penaltyBox);
 }
