@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Game {
 	ArrayList<Player> players = new ArrayList<Player>();
-	boolean isGettingOutOfPenaltyBox;
 	private Deck deck;
 	private PenaltyBox penaltyBox;
 	Player currentPlayer;
