@@ -13,7 +13,7 @@ public class Game {
 	public Game() {
 		penaltyBox = new PenaltyBox();
 		deck = new Deck();
-		penaltyBoxState = new PlayerOutsidePenaltyBox(this);
+		penaltyBoxState = new PlayerOutsidePenaltyBoxState(this);
 	}
 
 	public boolean isPlayable() {
@@ -99,9 +99,9 @@ public class Game {
 		currentPlayer = players.get(nextPosition);
 		
 		if (penaltyBox.contains(currentPlayer)) {
-			penaltyBoxState = new PlayerInPenaltyBox(this);
+			penaltyBoxState = new PlayerInsidePenaltyBoxState(this);
 		} else {
-			penaltyBoxState = new PlayerOutsidePenaltyBox(this);
+			penaltyBoxState = new PlayerOutsidePenaltyBoxState(this);
 		}
 	}
 }

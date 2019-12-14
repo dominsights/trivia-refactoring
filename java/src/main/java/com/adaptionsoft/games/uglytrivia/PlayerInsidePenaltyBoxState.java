@@ -1,8 +1,8 @@
 package com.adaptionsoft.games.uglytrivia;
 
-public class PlayerInPenaltyBox extends PenaltyBoxState {
+public class PlayerInsidePenaltyBoxState extends PenaltyBoxState {
 
-	public PlayerInPenaltyBox(Game game) {
+	public PlayerInsidePenaltyBoxState(Game game) {
 		super(game);
 	}
 
