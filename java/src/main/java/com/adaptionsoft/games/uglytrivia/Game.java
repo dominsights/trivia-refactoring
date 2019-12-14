@@ -66,6 +66,16 @@ public class Game {
 		updatePlayerPosition(roll, player);
 		deck.askQuestion(player.getPosition());
 	}
+	
+	void increasePlayerCoins(Player player) {
+		System.out.println("Answer was correct!!!!");
+		player.setCoins(player.getCoins() + 1);
+		System.out.println(currentPlayer.getName() + " now has " + currentPlayer.getCoins() + " Gold Coins.");
+	}
+
+	boolean didPlayerWin() {
+		return !(currentPlayer.getCoins() == 6);
+	}
 
 	private void updatePlayerPosition(int roll, Player player) {
 		player.setPosition(player.getPosition() + roll);
@@ -93,15 +103,5 @@ public class Game {
 		} else {
 			penaltyBoxState = new PlayerOutsidePenaltyBox(this);
 		}
-	}
-
-	void increasePlayerCoins(Player player) {
-		System.out.println("Answer was correct!!!!");
-		player.setCoins(player.getCoins() + 1);
-		System.out.println(currentPlayer.getName() + " now has " + currentPlayer.getCoins() + " Gold Coins.");
-	}
-
-	boolean didPlayerWin() {
-		return !(currentPlayer.getCoins() == 6);
 	}
 }
