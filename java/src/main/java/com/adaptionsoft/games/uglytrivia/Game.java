@@ -54,34 +54,6 @@ public class Game {
 		penaltyBox.insertPlayer(currentPlayer);
 	}
 	
-	void updatePlayerPositionAndAskQuestion(int roll, Player player) {
-		updatePlayerPosition(roll, player);
-		deck.askQuestion(player.getPosition());
-	}
-	
-	void increasePlayerCoins(Player player) {
-		System.out.println("Answer was correct!!!!");
-		player.setCoins(player.getCoins() + 1);
-		System.out.println(currentPlayer.getName() + " now has " + currentPlayer.getCoins() + " Gold Coins.");
-	}
-
-	public boolean isNotAWinner() {
-		return !(currentPlayer.getCoins() == 6);
-	}
-
-	private void updatePlayerPosition(int roll, Player player) {
-		player.setPosition(player.getPosition() + roll);
-		int maxPosition = 11;
-		if (player.getPosition() > maxPosition) {
-			resetPlayerPosition(player);
-		}
-		System.out.println(player.getName() + "'s new location is " + player.getPosition());
-	}
-
-	private void resetPlayerPosition(Player player) {
-		player.setPosition(player.getPosition() - 12);
-	}
-
 	public void changeToNextPlayer() {
 		int currentPosition = players.indexOf(currentPlayer);
 		int nextPosition = currentPosition + 1;
@@ -95,5 +67,33 @@ public class Game {
 		} else {
 			penaltyBoxState = new PlayerOutsidePenaltyBoxState(this);
 		}
+	}
+	
+	public boolean isNotAWinner() {
+		return !(currentPlayer.getCoins() == 6);
+	}
+	
+	void updatePlayerPositionAndAskQuestion(int roll, Player player) {
+		updatePlayerPosition(roll, player);
+		deck.askQuestion(player.getPosition());
+	}
+	
+	void increasePlayerCoins(Player player) {
+		System.out.println("Answer was correct!!!!");
+		player.setCoins(player.getCoins() + 1);
+		System.out.println(currentPlayer.getName() + " now has " + currentPlayer.getCoins() + " Gold Coins.");
+	}
+
+	private void updatePlayerPosition(int roll, Player player) {
+		player.setPosition(player.getPosition() + roll);
+		int maxPosition = 11;
+		if (player.getPosition() > maxPosition) {
+			resetPlayerPosition(player);
+		}
+		System.out.println(player.getName() + "'s new location is " + player.getPosition());
+	}
+
+	private void resetPlayerPosition(Player player) {
+		player.setPosition(player.getPosition() - 12);
 	}
 }
