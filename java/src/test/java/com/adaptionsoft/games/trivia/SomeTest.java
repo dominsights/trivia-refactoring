@@ -166,6 +166,17 @@ public class SomeTest {
 		
 		Approvals.verify(output);
 	}
+	
+//	@Test
+//	public void shouldNotRunOutOfQuestions() {
+//		Game game = new Game();
+//		addTwoPlayers(game);
+//		
+//		for(int i = 0; i < 300; i++) {
+//			game.roll(1);
+//			game.wrongAnswer();
+//		}
+//	}
 
 	private String getOutput(ByteArrayOutputStream byteOutputStream) {
 		System.out.flush();

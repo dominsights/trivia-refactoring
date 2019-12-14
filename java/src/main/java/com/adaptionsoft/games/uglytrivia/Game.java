@@ -8,10 +8,12 @@ public class Game {
 	private Deck deck;
 	private PenaltyBox penaltyBox;
 	Player currentPlayer;
+	private PenaltyBoxState penaltyBoxState;
 
 	public Game() {
 		penaltyBox = new PenaltyBox();
 		deck = new Deck();
+		penaltyBoxState = new PlayerOutsidePenaltyBox(this);
 	}
 
 	public boolean isPlayable() {
@@ -40,32 +42,12 @@ public class Game {
 		System.out.println(currentPlayer.getName() + " is the current player");
 		System.out.println("They have rolled a " + roll);
 
-		if (penaltyBox.contains(currentPlayer)) {
-			isGettingOutOfPenaltyBox = roll % 2 != 0;
-			if (isGettingOutOfPenaltyBox) {
-				System.out.println(currentPlayer.getName() + " is getting out of the penalty box");
-				updatePlayerPositionAndAskQuestion(roll, currentPlayer);
-			} else {
-				System.out.println(currentPlayer.getName() + " is not getting out of the penalty box");
-			}
-		} else {
-			updatePlayerPositionAndAskQuestion(roll, currentPlayer);
-		}
+		penaltyBoxState.roll(currentPlayer, roll);
 	}
 
 	public boolean wasCorrectlyAnswered() {
 		boolean playerDidWin;
-		if (penaltyBox.contains(currentPlayer)) {
-			if (isGettingOutOfPenaltyBox) {
-				increasePlayerCoins(currentPlayer);
-				playerDidWin = didPlayerWin();
-			} else {
-				playerDidWin = true;
-			}
-		} else {
-			increasePlayerCoins(currentPlayer);
-			playerDidWin = didPlayerWin();
-		}
+		playerDidWin = penaltyBoxState.wasCorrectlyAnswered(currentPlayer, penaltyBox);
 		
 		updateCurrentPlayer();
 		return playerDidWin;
@@ -80,7 +62,7 @@ public class Game {
 		return true;
 	}
 	
-	private void updatePlayerPositionAndAskQuestion(int roll, Player player) {
+	void updatePlayerPositionAndAskQuestion(int roll, Player player) {
 		updatePlayerPosition(roll, player);
 		deck.askQuestion(player.getPosition());
 	}
@@ -105,15 +87,21 @@ public class Game {
 			nextPosition = 0;
 		}
 		currentPlayer = players.get(nextPosition);
+		
+		if (penaltyBox.contains(currentPlayer)) {
+			penaltyBoxState = new PlayerInPenaltyBox(this);
+		} else {
+			penaltyBoxState = new PlayerOutsidePenaltyBox(this);
+		}
 	}
 
-	private void increasePlayerCoins(Player player) {
+	void increasePlayerCoins(Player player) {
 		System.out.println("Answer was correct!!!!");
 		player.setCoins(player.getCoins() + 1);
 		System.out.println(currentPlayer.getName() + " now has " + currentPlayer.getCoins() + " Gold Coins.");
 	}
 
-	private boolean didPlayerWin() {
+	public boolean didPlayerWin() {
 		return !(currentPlayer.getCoins() == 6);
 	}
 }
