@@ -14,8 +14,8 @@ public abstract class Board {
 
 	public abstract QuestionCategory currentCategory(int playerPosition);
 	
-	public static Board createBoardBasedOnSize(int numberOfPositions) {
-		if(numberOfPositions == 12) {
+	public static Board createBoardBasedOnSize(int numberOfPositions, int numberOfCategories) {
+		if(numberOfPositions == 12 && numberOfCategories == 4) {
 			return new TwelvePositionsBoard();
 		}
 		

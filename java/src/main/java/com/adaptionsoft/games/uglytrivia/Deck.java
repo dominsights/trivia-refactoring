@@ -11,6 +11,10 @@ public class Deck {
 	LinkedList<Question> scienceQuestions = new LinkedList<Question>();
 	LinkedList<Question> sportsQuestions = new LinkedList<Question>();
 	LinkedList<Question> rockQuestions = new LinkedList<Question>();
+	
+	public int getCategoriesSize() {
+		return 4;
+	}
 
 	public void initializeQuestions() {
 		for (int i = 0; i < 50; i++) {

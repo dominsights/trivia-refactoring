@@ -15,7 +15,7 @@ public class Game {
 		deck = new Deck();
 		penaltyBoxState = new PlayerOutsidePenaltyBoxState(this);
 		int numberOfPositions = 12;
-		board = Board.createBoardBasedOnSize(numberOfPositions); //TODO Introduce factory based on deck categories and size
+		board = Board.createBoardBasedOnSize(numberOfPositions, deck.getCategoriesSize());
 	}
 
 	public boolean isPlayable() {
