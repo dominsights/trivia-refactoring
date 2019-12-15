@@ -7,6 +7,13 @@ public class Deck {
 		initializeQuestions();
 	}
 	
+	enum Category {
+		Pop,
+		Science,
+		Sports,
+		Rock
+	}
+	
 	LinkedList<Question> popQuestions = new LinkedList<Question>();
 	LinkedList<Question> scienceQuestions = new LinkedList<Question>();
 	LinkedList<Question> sportsQuestions = new LinkedList<Question>();
@@ -22,39 +29,40 @@ public class Deck {
 	}
 	
 	public void askQuestion(int playerPosition) {
-		System.out.println("The category is " + currentCategory(playerPosition));
-		if (currentCategory(playerPosition) == "Pop") {
+		Category currentCategory = currentCategory(playerPosition);
+		System.out.println("The category is " + currentCategory);
+		
+		switch (currentCategory) {
+		case Pop:
 			System.out.println(popQuestions.removeFirst());
-		} else if (currentCategory(playerPosition) == "Science") {
+			break;
+		case Science:
 			System.out.println(scienceQuestions.removeFirst());
-		} else if (currentCategory(playerPosition) == "Sports") {
+			break;
+		case Sports:
 			System.out.println(sportsQuestions.removeFirst());
-		} else if (currentCategory(playerPosition) == "Rock") {
+			break;
+		case Rock:
 			System.out.println(rockQuestions.removeFirst());
+			break;
 		}
 	}
 	
-	public String currentCategory(int playerPosition) {
+	public Category currentCategory(int playerPosition) {
 		switch (playerPosition) {
 		case 0:
-			return "Pop";
 		case 4:
-			return "Pop";
 		case 8:
-			return "Pop";
+			return Category.Pop;
 		case 1:
-			return "Science";
 		case 5:
-			return "Science";
 		case 9:
-			return "Science";
+			return Category.Science;
 		case 2:
-			return "Sports";
 		case 6:
-			return "Sports";
 		case 10:
-			return "Sports";
+			return Category.Sports;
 		}
-		return "Rock";
+		return Category.Rock;
 	}
 }
