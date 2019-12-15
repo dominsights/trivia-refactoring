@@ -5,6 +5,24 @@ import java.util.ArrayList;
 public class Board {
 	private final int BOARD_SIZE = 12;
 	
+	public QuestionCategory currentCategory(int playerPosition) {
+		switch (playerPosition) {
+		case 0:
+		case 4:
+		case 8:
+			return QuestionCategory.Pop;
+		case 1:
+		case 5:
+		case 9:
+			return QuestionCategory.Science;
+		case 2:
+		case 6:
+		case 10:
+			return QuestionCategory.Sports;
+		}
+		return QuestionCategory.Rock;
+	}
+	
 	int getNextPosition(ArrayList<Player> players, Player currentPlayer) {
 		int currentPosition = players.indexOf(currentPlayer);
 		int nextPosition = currentPosition + 1;
