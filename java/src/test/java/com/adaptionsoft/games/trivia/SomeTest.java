@@ -186,6 +186,49 @@ public class SomeTest {
 		Approvals.verify(output);
 	}
 	
+	@Test
+	public void shouldNotExitTheTwiceWhenTwoCorrectAnswersInARow() {
+		ByteArrayOutputStream byteOutputStream = setCustomOutStream();
+		
+		Game game = new Game();
+		addTwoPlayers(game);
+		
+		// first turn
+		
+		// first player
+		game.roll(1);
+		game.wrongAnswer();
+		
+		// second player
+		game.changeToNextPlayer();
+		game.roll(1);
+		game.correctAnswer();
+		
+		// second turn
+		
+		// first player
+		game.changeToNextPlayer();
+		game.roll(1);
+		game.correctAnswer();
+		
+		// second player
+		game.changeToNextPlayer();
+		game.roll(1);
+		game.correctAnswer();
+		
+		// third turn
+		
+		// first player
+		game.changeToNextPlayer();
+		game.roll(1);
+		game.correctAnswer();
+		
+		String output = getOutput(byteOutputStream);
+		
+		Approvals.verify(output);
+		
+	}
+	
 //	@Test
 //	public void shouldNotRunOutOfQuestions() {
 //		Game game = new Game();
