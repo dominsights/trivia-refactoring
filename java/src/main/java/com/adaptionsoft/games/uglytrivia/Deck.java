@@ -17,12 +17,8 @@ public class Deck {
 			popQuestions.addLast(new Question("Pop Question " + i));
 			scienceQuestions.addLast(new Question("Science Question " + i));
 			sportsQuestions.addLast(new Question("Sports Question " + i));
-			rockQuestions.addLast(new Question(createRockQuestion(i)));
+			rockQuestions.addLast(new Question("Rock Question " + i));
 		}
-	}
-
-	public String createRockQuestion(int index) {
-		return "Rock Question " + index;
 	}
 	
 	public void askQuestion(int playerPosition) {
