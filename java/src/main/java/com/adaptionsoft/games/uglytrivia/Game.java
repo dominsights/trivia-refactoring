@@ -3,9 +3,6 @@ package com.adaptionsoft.games.uglytrivia;
 import java.util.ArrayList;
 
 public class Game {
-	
-	//TODO Choose board based on deck size and categories
-	
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private Deck deck;
 	private PenaltyBox penaltyBox;
@@ -17,7 +14,8 @@ public class Game {
 		penaltyBox = new PenaltyBox();
 		deck = new Deck();
 		penaltyBoxState = new PlayerOutsidePenaltyBoxState(this);
-		board = new Board();
+		int numberOfPositions = 12;
+		board = Board.createBoardBasedOnSize(numberOfPositions); //TODO Introduce factory based on categories and size
 	}
 
 	public boolean isPlayable() {

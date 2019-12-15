@@ -2,45 +2,24 @@ package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
 
-public class Board {
-	private final int BOARD_SIZE = 12;
-	
-	public QuestionCategory currentCategory(int playerPosition) {
-		switch (playerPosition) {
-		case 0:
-		case 4:
-		case 8:
-			return QuestionCategory.Pop;
-		case 1:
-		case 5:
-		case 9:
-			return QuestionCategory.Science;
-		case 2:
-		case 6:
-		case 10:
-			return QuestionCategory.Sports;
-		}
-		return QuestionCategory.Rock;
-	}
-	
-	int getNextPosition(ArrayList<Player> players, Player currentPlayer) {
-		int currentPosition = players.indexOf(currentPlayer);
-		int nextPosition = currentPosition + 1;
-		if (nextPosition > players.size() - 1) {
-			nextPosition = 0;
-		}
-		return nextPosition;
-	}
-	
-	void updatePlayerPosition(int roll, Player player) {
-		player.setPosition(player.getPosition() + roll);
-		if (player.getPosition() + 1 > BOARD_SIZE) {
-			resetPlayerPosition(player);
-		}
-		System.out.println(player.getName() + "'s new location is " + player.getPosition());
+public abstract class Board {
+
+	public Board() {
+		super();
 	}
 
-	private void resetPlayerPosition(Player player) {
-		player.setPosition(player.getPosition() - 12);
+	protected abstract void updatePlayerPosition(int roll, Player player);
+
+	protected abstract int getNextPosition(ArrayList<Player> players, Player currentPlayer);
+
+	public abstract QuestionCategory currentCategory(int playerPosition);
+	
+	public static Board createBoardBasedOnSize(int numberOfPositions) {
+		if(numberOfPositions == 12) {
+			return new TwelvePositionsBoard();
+		}
+		
+		throw new UnsupportedOperationException("Game doesn't support a board with the size specified.");
 	}
+
 }
