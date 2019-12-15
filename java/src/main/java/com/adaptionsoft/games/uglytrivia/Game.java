@@ -8,11 +8,13 @@ public class Game {
 	private PenaltyBox penaltyBox;
 	private Player currentPlayer;
 	private PenaltyBoxState penaltyBoxState;
+	private Board board;
 
 	public Game() {
 		penaltyBox = new PenaltyBox();
 		deck = new Deck();
 		penaltyBoxState = new PlayerOutsidePenaltyBoxState(this);
+		board = new Board();
 	}
 
 	public boolean isPlayable() {
@@ -55,11 +57,7 @@ public class Game {
 	}
 	
 	public void changeToNextPlayer() {
-		int currentPosition = players.indexOf(currentPlayer);
-		int nextPosition = currentPosition + 1;
-		if (nextPosition > players.size() - 1) {
-			nextPosition = 0;
-		}
+		int nextPosition = board.getNextPosition(players, currentPlayer);
 		currentPlayer = players.get(nextPosition);
 		
 		if (penaltyBox.contains(currentPlayer)) {
@@ -74,7 +72,7 @@ public class Game {
 	}
 	
 	void updatePlayerPositionAndAskQuestion(int roll, Player player) {
-		updatePlayerPosition(roll, player);
+		board.updatePlayerPosition(roll, player);
 		deck.askQuestion(player.getPosition());
 	}
 	
@@ -82,18 +80,5 @@ public class Game {
 		System.out.println("Answer was correct!!!!");
 		player.setCoins(player.getCoins() + 1);
 		System.out.println(currentPlayer.getName() + " now has " + currentPlayer.getCoins() + " Gold Coins.");
-	}
-
-	private void updatePlayerPosition(int roll, Player player) {
-		player.setPosition(player.getPosition() + roll);
-		int maxPosition = 11;
-		if (player.getPosition() > maxPosition) {
-			resetPlayerPosition(player);
-		}
-		System.out.println(player.getName() + "'s new location is " + player.getPosition());
-	}
-
-	private void resetPlayerPosition(Player player) {
-		player.setPosition(player.getPosition() - 12);
 	}
 }
