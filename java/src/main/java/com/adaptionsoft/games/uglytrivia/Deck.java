@@ -7,13 +7,6 @@ public class Deck {
 		initializeQuestions();
 	}
 	
-	enum Category {
-		Pop,
-		Science,
-		Sports,
-		Rock
-	}
-	
 	LinkedList<Question> popQuestions = new LinkedList<Question>();
 	LinkedList<Question> scienceQuestions = new LinkedList<Question>();
 	LinkedList<Question> sportsQuestions = new LinkedList<Question>();
@@ -28,8 +21,7 @@ public class Deck {
 		}
 	}
 	
-	public void askQuestion(int playerPosition) {
-		Category currentCategory = currentCategory(playerPosition);
+	public void askQuestion(int playerPosition, QuestionCategory currentCategory) {
 		System.out.println("The category is " + currentCategory);
 		
 		switch (currentCategory) {
@@ -46,23 +38,5 @@ public class Deck {
 			System.out.println(rockQuestions.removeFirst());
 			break;
 		}
-	}
-	
-	public Category currentCategory(int playerPosition) {
-		switch (playerPosition) {
-		case 0:
-		case 4:
-		case 8:
-			return Category.Pop;
-		case 1:
-		case 5:
-		case 9:
-			return Category.Science;
-		case 2:
-		case 6:
-		case 10:
-			return Category.Sports;
-		}
-		return Category.Rock;
 	}
 }

@@ -3,6 +3,9 @@ package com.adaptionsoft.games.uglytrivia;
 import java.util.ArrayList;
 
 public class Game {
+	
+	//TODO Choose board based on deck size and categories
+	
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private Deck deck;
 	private PenaltyBox penaltyBox;
@@ -73,12 +76,30 @@ public class Game {
 	
 	void updatePlayerPositionAndAskQuestion(int roll, Player player) {
 		board.updatePlayerPosition(roll, player);
-		deck.askQuestion(player.getPosition());
+		deck.askQuestion(player.getPosition(), currentCategory(player.getPosition()));
 	}
 	
 	void increasePlayerCoins(Player player) {
 		System.out.println("Answer was correct!!!!");
 		player.setCoins(player.getCoins() + 1);
 		System.out.println(currentPlayer.getName() + " now has " + currentPlayer.getCoins() + " Gold Coins.");
+	}
+	
+	public QuestionCategory currentCategory(int playerPosition) {
+		switch (playerPosition) {
+		case 0:
+		case 4:
+		case 8:
+			return QuestionCategory.Pop;
+		case 1:
+		case 5:
+		case 9:
+			return QuestionCategory.Science;
+		case 2:
+		case 6:
+		case 10:
+			return QuestionCategory.Sports;
+		}
+		return QuestionCategory.Rock;
 	}
 }
